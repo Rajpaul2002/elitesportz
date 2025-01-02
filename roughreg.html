@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Registration Portal</title>
+   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        /* General body styles */
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background-color: transparent !important;
+        }
+
+        .navbar-brand img {
+            height: 100px !important;
+            width: 160px !important;
+            margin-left: -20px;
+            margin-top: 10px;
+        }
+
+        .navbar-toggler-icon {
+            background-color: red;
+        }
+
+        /* Navbar links */
+        .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: grey;
+            
+        }
+
+        /* Form section styles */
+        .content {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        /* Input and Textarea styling */
+        input, select, textarea {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: red;
+            background-color: #444;
+        }
+
+        .form-label {
+            color: white;
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background-color: red;
+            border-color: red;
+        }
+
+        .btn-primary:hover {
+            background-color: #c00;
+            border-color: #c00;
+        }
+
+        .btn-secondary {
+            background-color: grey;
+            border-color: grey;
+        }
+
+        .btn-secondary:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+
+        /* Section header */
+        h2 {
+            color: red;
+        }
+
+        /* Error message */
+        .invalid-feedback {
+            color: red;
+        }
+        .video-background {
+            position: fixed; /* Fixed background video */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the full background */
+            z-index: -1; /* Keeps the video behind content */
+            
+        }
+        /* Styling for input fields' placeholders */
+            input::placeholder,
+            textarea::placeholder,
+            select::placeholder {
+                color: rgba(255, 255, 255, 0.7) !important; /* Light grey color with opacity */
+                opacity: 0.8 !important; /* Slight transparency for a glass-like effect */
+            }
+
+            input, textarea, select {
+                background-color: #333 !important; /* Dark background for input fields */
+                color: white !important; /* White text for the input fields */
+                border: 1px solid #444 !important; /* Darker border for input fields */
+            }
+
+            input:focus, textarea:focus, select:focus {
+                border-color: #f00 !important; /* Red border when focused */
+                outline: none !important; /* Remove default outline */
+            }
+            /* Hide the default number input arrows */
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input[type="number"] {
+                -moz-appearance: textfield; /* For Firefox */
+            }
+             .form-select {
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+
+    </style>
+</head>
+
+
+<body>
+    <video class="video-background" muted autoplay loop >
+        <source src="./photos/smoke background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="./photos/white logo.png" alt="Elite Sports">
+            </a>
+            <!-- Toggler Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" id="personalDetailsLink" href="./index.html" style="color: red !important;" onclick="showSection('personalDetails')">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="personalDetailsLink" href="#" onclick="showSection('personalDetails')">Personal Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="playerDetailsLink" href="#" onclick="showSection('playerDetails')">Player Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="paymentDetailsLink" href="#" onclick="showSection('paymentDetails')">Payment Details</a>
+                        </li>
+                    </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Personal Details Section -->
+        <div id="personalDetails" class="content active-section">
+            <h2>Personal Details</h2>
+            <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-5">
+                    <label for="validationCustom01" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="validationCustom01" required style="width: 500px;">
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="col-md-5">
+                    <label for="validationCustom02" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="validationCustom02" required  style="width: 300px;">
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="col-md-2" style="margin-left: 10px;">
+                    <label for="validationCustomAge" class="form-label">Age</label>
+                    <div class="input-group">
+                        <!-- Down Arrow Button (inside the input) -->
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateAge(-1)">&#8595;</button>
+                        <!-- Age Input Field -->
+                        <input type="number" class="form-control" id="validationCustomAge" style="width: 100px;" placeholder="Age" value="1" required>
+                        <!-- Up Arrow Button (inside the input) -->
+                        <button class="btn btn-outline-secondary" type="button" onclick="updateAge(1)">&#8593;</button>
+                    </div>
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+                
+    
+
+                    
+                   
+                <!-- <div class="col-md-5">
+                    <label for="validationCustom02" class="form-label">CricHeroes Mobile Number</label>
+                    <input type="text" class="form-control" id="validationCustom02" style="width: 150px;" required>
+                    <div class="valid-feedback">Looks good!</div>
+                </div> -->
+                <div class="col-md-5">
+                    <label for="validationCustom03" class="form-label">CricHeroes Mobile Number</label>
+                    <input type="tel" class="form-control" id="validationCustom03" style="width: 150px;" placeholder="Mobile Number" pattern="\d*" required>
+                    <div class="valid-feedback">Looks good!</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="validationCustom03" class="form-label">City</label>
+                    <input type="text" class="form-control" id="validationCustom03" required style="width: 200px;">
+                    <div class="invalid-feedback">Please provide a valid city.</div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom04" class="form-label">State</label>
+                    <select class="form-select" id="validationCustom04" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>...</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a valid state.</div>
+                </div>
+                <div class="col-md-3">
+                    <label for="validationCustom05" class="form-label">Pin Code</label>
+                    <input type="text" class="form-control" id="validationCustom05" required>
+                    <div class="invalid-feedback">Please provide a valid zip.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="paymentReceipt" class="form-label mb-3">Upload your Photo</label>
+                    <input type="file" class="form-control" id="paymentReceipt" accept=".jpg,.png,.pdf">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-primary" type="button" onclick="showSection('playerDetails')"> Save and Next</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Player Details Section -->
+        <div id="playerDetails" class="content">
+            <h2>Player Details</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="playerRole" class="form-label">Player Role</label>
+                    <input type="text" class="form-control" id="playerRole" placeholder="Enter Player Role"; style="width: 500px;">
+                </div>
+                <div class="mb-3">
+                    <label for="battingStyle" class="form-label">Batting Style</label>
+                    <select class="form-select" id="battingStyle" style="width: 500px;">
+                        <option value="right-hand">Right-Hand Batsman</option>
+                        <option value="left-hand">Left-Hand Batsman</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="bowlingStyle" class="form-label" style="width: 150px;">Bowling Style</label>
+                    <select class="form-select" id="bowlingStyle" style="width: 500px;">
+                        <option value="right-hand">Right-Hand Bowler</option>
+                        <option value="left-hand">Left-Hand Bowler</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="jerseySize" class="form-label">Jersey Size</label>
+                    <select class="form-select" id="bowlingStyle" style="width: 100px;">
+                        <option value="right-hand">XS</option>
+                        <option value="left-hand">Small</option>
+                        <option value="right-hand">Medium</option>
+                        <option value="left-hand">Large</option>
+                        <option value="right-hand">XL</option>
+                        <option value="left-hand">XXL</option>
+                        <option value="right-hand">XXXL</option>
+                        <option value="left-hand">4XL</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="jerseyNumber" class="form-label" inputmode="number">Jersey Number</label>
+                    <input type="number" class="form-control" id="jerseyNumber" placeholder="Enter Jersey Number" style="width: 200px;">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-secondary" type="button" onclick="showSection('personalDetails')">Previous</button>
+                    <button class="btn btn-primary" type="button" onclick="showSection('paymentDetails')"> Save and Next</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Payment Details Section -->
+        <div id="paymentDetails" class="content">
+            <h2>Payment Details</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="paymentReceipt" class="form-label mb-3">Upload your Payment Receipt</label>
+                    <input type="file" class="form-control" id="paymentReceipt" accept=".jpg,.png,.pdf">
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-secondary" type="button" onclick="showSection('playerDetails')">Previous</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+   
+    <script>
+    
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content');
+            sections.forEach((section) => {
+                section.classList.remove('active-section');
+                section.style.display = 'none'; 
+            });
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active-section');
+            activeSection.style.display = 'block'; 
+        }
+       
+            function updateAge(change) {
+                var ageInput = document.getElementById("validationCustomAge");  // Ensure the correct ID
+                var currentAge = parseInt(ageInput.value) || 0;  // Default to 0 if the input is empty
+
+                var newAge = currentAge + change;  // Calculate the new age
+
+                // Prevent age from going below 1
+                if (newAge < 1) {
+                    alert("Age cannot be less than 1.");
+                    return;  // Stop the function execution
+                }
+
+                ageInput.value = newAge;  // Update the age value
+                validateAge();  // Revalidate age on change
+            }
+
+            // Validate the age and disable "Save and Next" if invalid
+            function validateAge() {
+                var ageInput = document.getElementById("validationCustomAge");
+                var nextButton = document.querySelector(".btn-primary");  // Assuming "Save and Next" button is the first primary button
+
+                if (parseInt(ageInput.value) < 1) {
+                    nextButton.disabled = true;  // Disable next button if age is invalid
+                } else {
+                    nextButton.disabled = false;  // Enable next button if age is valid
+                }
+            }
+
+            // Run initial validation when the page loads to ensure the age is valid
+            document.addEventListener("DOMContentLoaded", function() {
+                validateAge();
+            });
+
+       
+
+      
+    </script>
+    
+
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> 
+      
+</body>
+</html>
